@@ -1,7 +1,18 @@
-/*! cookie function. get, set, or forget a cookie. [c]2014 @scottjehl, Filament Group, Inc. Licensed MIT */
-function cookie( name, value, days ){
-	// if value is undefined, get the cookie value
-	if( value === undefined ){
+/*! cookie function. get, set, or forget a cookie. [c]2014 @scottjehl,@etoah(Lucien), Filament Group, Inc. Licensed MIT */
+function cookie( name, value, days ){	
+	if(name===undefined)//// if name is undefined, return the serilized cookie
+	{
+		var cookieObj={},
+			equalIndex;
+		var cookies = window.document.cookie.split( ";" );
+		for(var i=0;i<cookies.length;i++)
+		{
+			equalIndex=cookies[i].indexOf('=');
+			cookieObj[cookies[i].substring(0,equalIndex)]=cookies[i].substring(equalIndex+1);//To prevent the value of  '='an error occurred 
+		}
+		return cookieObj;
+	}
+	else if( value === undefined ){// if value is undefined, get the cookie value
 		var cookiestring = "; " + window.document.cookie;
 		var cookies = cookiestring.split( "; " + name + "=" );
 		if ( cookies.length === 2 ){
